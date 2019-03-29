@@ -1,4 +1,5 @@
-# oblige-my-doom
+# Oblige my Doom
+
 A small windows batch script to launch your favorite DOOM source port with your favorite wads and a freshly generated Oblige map
 
 To use this script you must create a text file with the format used in Example.txt
@@ -19,8 +20,24 @@ For extra roguelite feel, we recommend closing your game on death and getting a 
 
 Enjoy your Roguelite, Doomed Marines.
 
-You'll need:
-Oblige: http://oblige.sourceforge.net/
+Requirements
+------------
+
+1. Oblige: http://oblige.sourceforge.net/
+2. A Sourceport of your choice
+   - GZDoom: https://zdoom.org/downloads
+   - Zandronum: https://zandronum.com/
+   - any other
+3. Original DOOM files (IWADS)
+4. (Optional) DOOM Mods (PWADS)
+
+Copyrights
+----------
 
 Oblige belongs to Andrew Apted
+
+GZDoom belongs to ZDoom + GZDoom teams, and contributors
+
+Zandronum belongs to Torr Samaho & Zandronum Team
+
 DOOM belongs to Zenimax Media, Bethesda and idSoftware
