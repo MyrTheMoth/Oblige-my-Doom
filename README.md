@@ -18,3 +18,9 @@ You may also drag your config file onto the batch to go directly to generating a
 For extra roguelite feel, we recommend closing your game on death and getting a new map.
 
 Enjoy your Roguelite, Doomed Marines.
+
+You'll need:
+Oblige: http://oblige.sourceforge.net/
+
+Oblige belongs to Andrew Apted
+DOOM belongs to Zenimax Media, Bethesda and idSoftware
