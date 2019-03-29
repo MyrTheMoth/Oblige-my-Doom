@@ -1,11 +1,6 @@
 # oblige-my-doom
 A small windows batch script to launch your favorite DOOM source port with your favorite wads and a freshly generated Oblige map
 
-Welcome to Oblige my Doom
-
-This is a simple batch script that will generate an oblige map and launch it with your sourceport,
-iwad and pwads of choice, given your prefered obligue configuration.
-
 To use this script you must create a text file with the format used in Example.txt
 
 Each line requires the specified path to the files in quotations.
