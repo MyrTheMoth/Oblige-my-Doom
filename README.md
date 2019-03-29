@@ -18,5 +18,3 @@ You may also drag your config file onto the batch to go directly to generating a
 For extra roguelite feel, we recommend closing your game on death and getting a new map.
 
 Enjoy your Roguelite, Doomed Marines.
-
-Cheers, Gabe
