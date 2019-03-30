@@ -1,0 +1,5 @@
+oblige_path "X:\Path\to\your\Oblige\Executable\Oblige.exe"
+oblige_config "X:\Path\to\your\Oblige\Configuration\config.txt"
+source_port "X:\Path\to\your\Source\Port\gzdoom.exe"
+iwad "X:\Path\to\your\IWAD\DOOM2.WAD"
+pwads "X:\Path\to\your\First\PWAD\PWAD1.wad" "X:\Path\to\your\Second\PWAD\PWAD2.pk3"
