@@ -35,7 +35,9 @@ mod_layout = [
 layout = [
     [sg.Frame("Game", game_layout), sg.Frame("Mods", mod_layout)],
     [sg.Button("Launch"), sg.FileSaveAs("Save Game", key="SaveConfig", target=("SaveConfig"), enable_events=True, file_types=(("XML Files", "*.xml"),)),
-     sg.FileBrowse("Load Game", key="LoadConfig", target=("LoadConfig"), enable_events=True, file_types=(("XML Files", "*.xml"),))]
+     sg.FileBrowse("Load Game", key="LoadConfig", target=(
+         "LoadConfig"), enable_events=True, file_types=(("XML Files", "*.xml"),)),
+     sg.Button("Oblige"), sg.Text("Arguments"), sg.InputText(key="arguments", do_not_clear=True)]
 ]
 
 window = sg.Window("Oblige my Doom", auto_size_text=True, auto_size_buttons=True,
@@ -100,8 +102,9 @@ while True:
         if len(fileList) is not 0:
             for pwad in fileList:
                 pwadList.append(pwad)
+        argumentString = values["arguments"]
         conf.writeXML(conf.buildConfig(
-            configList, pwadList), values["SaveConfig"])
+            configList, pwadList, argumentString), values["SaveConfig"])
 
     if event == "LoadConfig":
         configList, pwadList = conf.readXML(values["LoadConfig"])
@@ -112,6 +115,7 @@ while True:
         window.Element("source_port").Update(configList[2])
         window.Element("iwad").Update(configList[3])
         window.Element("pwads").Update(pwadList)
+        window.Element("arguments").Update(configList[4])
 
     if event == "Launch":
         configList = ["", "", "", ""]
@@ -124,6 +128,7 @@ while True:
         if len(fileList) is not 0:
             for pwad in fileList:
                 pwadList.append(pwad)
+        argumentString = values["arguments"]
         print(configList)
         launchReady = True
         for config in configList:
@@ -132,9 +137,18 @@ while True:
         if launchReady is True:
             sg.PopupAnimated(image_source=loading_animation,
                              message="Generating Map, Time Depends on your Oblige Config", alpha_channel=1, time_between_frames=10)
+            comm.updateOutput()
             comm.runOblige(configList)
             sg.PopupAnimated(image_source=None)
-            comm.runSourcePort(configList, pwadList)
+            comm.runSourcePort(configList, pwadList, argumentString)
         elif launchReady is False:
             sg.PopupError("Cannot Launch with missing Config",
                           keep_on_top=True)
+
+    if event == "Oblige":
+        obligeFile = values["oblige"]
+        if obligeFile is "":
+            sg.PopupError("Cannot Launch Oblige without file path",
+                          keep_on_top=True)
+        else:
+            comm.launchOblige(obligeFile)

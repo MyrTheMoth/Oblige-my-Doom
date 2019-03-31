@@ -18,7 +18,7 @@ def XMLindent(elem, level=0):
             elem.tail = i
 
 
-def buildConfig(configList, pwadList):
+def buildConfig(configList, pwadList, argumentString):
     config = ET.Element("config")
     oblige = ET.SubElement(config, "oblige")
     oblige.text = configList[0]
@@ -35,6 +35,8 @@ def buildConfig(configList, pwadList):
             pwadCount += 1
             pwadElement = ET.SubElement(pwads, "pwad"+str(pwadCount))
             pwadElement.text = pwad
+    arguments = ET.SubElement(config, "arguments")
+    arguments.text = argumentString
     return config
 
 
