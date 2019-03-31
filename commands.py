@@ -10,8 +10,7 @@ outputFile = ""
 def updateOutput():
     global outputDirectory
     global outputFile
-    directory = os.path.dirname(os.path.realpath(__file__))
-    outputDirectory = os.path.join(directory, "output")
+    outputDirectory = 'output/'
     now = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
     outputFile = "output-" + str(now) + ".wad"
     print(outputDirectory)
@@ -28,7 +27,7 @@ def runOblige(configList):
     if os.path.exists(outputDirectory) is False:
         os.makedirs(outputDirectory)
     shutil.move(outputFile, outputDirectory)
-    outputFile = os.path.join(outputDirectory, outputFile)
+    outputFile = outputDirectory + outputFile
 
 
 def launchOblige(obligeFile):
