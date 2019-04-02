@@ -6,6 +6,27 @@ For extra roguelite feel, we recommend closing your game on death and getting a 
 
 Enjoy your Roguelite, Doomed Marines.
 
+Features
+------------
+
+- Generates a Timestamped Oblige Map
+- Keeps the Generated Maps in an Output Folder
+- Save and Load your favorite settings
+- Automatically Load your last used settings
+- Open Oblige from the Launcher
+- Add your own arguments to your source port before launch
+
+TODO
+------------
+
+- Oblige Setting file Maker/Editor
+
+Dependencies
+------------
+
+1. PySimpleGUIQt: https://pypi.org/project/PySimpleGUIQt/
+2. PySide2: https://pypi.org/project/PySide2/
+
 Requirements
 ------------
 
