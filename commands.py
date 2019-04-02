@@ -34,14 +34,14 @@ def launchOblige(obligeFile):
     subprocess.Popen(obligeFile)
 
 
-def runSourcePort(configList, pwadList, argumentString):
+def runSourcePort(configList, pwadList):
     global outputFile
     sourcePortArgs = [configList[2], "-iwad",
                       configList[3], "-file", outputFile]
 
     if len(pwadList) is 0:
-        if argumentString is not "":
-            argumentList = argumentString.split(" ")
+        if configList[4] is not "":
+            argumentList = configList[4].split(" ")
             for arguments in argumentList:
                 sourcePortArgs.append(arguments)
         print(sourcePortArgs)
@@ -49,8 +49,8 @@ def runSourcePort(configList, pwadList, argumentString):
     else:
         for pwad in pwadList:
             sourcePortArgs.append(pwad)
-        if argumentString is not "":
-            argumentList = argumentString.split(" ")
+        if configList[4] is not "":
+            argumentList = configList[4].split(" ")
             for arguments in argumentList:
                 sourcePortArgs.append(arguments)
         print(sourcePortArgs)
