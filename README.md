@@ -49,4 +49,6 @@ GZDoom belongs to ZDoom + GZDoom teams, and contributors
 
 Zandronum belongs to Torr Samaho & Zandronum Team
 
+Freedoom belongs to the Freedoom Project
+
 DOOM belongs to Zenimax Media, Bethesda and idSoftware
