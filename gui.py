@@ -1,11 +1,13 @@
 import PySimpleGUIQt as sg
 import config as conf
 import commands as comm
-import assets as asse
-import os
+import data
+from os import path
 
 configList = ["", "", "", "", ""]
 pwadList = []
+
+# Set the Values of each element in the Window given a pair of lists of available settings and pwads
 
 
 def setValues(configList, pwadList):
@@ -15,6 +17,8 @@ def setValues(configList, pwadList):
     window.Element("iwad").Update(configList[3])
     window.Element("arguments").Update(configList[4])
     window.Element("pwads").Update(pwadList)
+
+# Get the values of each element in the Window and return it as a pair of lists of available settings and pwads
 
 
 def getValues():
@@ -31,9 +35,13 @@ def getValues():
             pwadList.append(pwad)
     return configList, pwadList
 
+# Save a XML Config File given a pair of lists of available settings and pwads, and a file name
+
 
 def saveConfig(configList, pwadList, name):
     conf.writeXML(conf.buildConfig(configList, pwadList), name)
+
+# Load a XML Config File given a file name
 
 
 def loadConfig(name):
@@ -45,6 +53,8 @@ def loadConfig(name):
         configCheck += 1
     return configList, pwadList
 
+# Update the Last Used Configuration
+
 
 def updateLastConfig():
     print("Saving Last Config")
@@ -54,13 +64,15 @@ def updateLastConfig():
     saveConfig(configList, pwadList, "config")
 
 
-if os.path.isfile("config.xml") is False:
+# Check if there is already Last Used Configuration XML File, if there is, Load it, if there isn't, Create one
+if path.isfile("config.xml") is False:
     print("Last Config does not exist")
     saveConfig(configList, pwadList, "config")
 else:
     print("Last Config exists")
     configList, pwadList = loadConfig("config")
 
+# Window Layout declarations
 game_layout = [
     [sg.Text("Oblige Executable")],
     [sg.InputText(default_text=configList[0], key="oblige", do_not_clear=True),
@@ -102,21 +114,24 @@ generate_layout = [
              justification="center", font=("Helvetica", 25))]
 ]
 
+# Assemble the Windows
 window = sg.Window("Oblige my Doom", auto_size_text=True, auto_size_buttons=True,
-                   default_element_size=(40, 1), resizable=False).Layout(layout)
+                   default_element_size=(40, 1), resizable=False, icon=data.default_icon).Layout(layout)
 
 pop = sg.Window("Oblige", no_titlebar=True, keep_on_top=True,
                 auto_size_text=True, resizable=False).Layout(generate_layout)
 
-
+# Persistent PySimpleGUI Window Loop
 while True:
     event, values = window.Read()
     print(event, values)
 
+    # Event Actions for Closing the Window
     if event is None:
         updateLastConfig()
         break
 
+    # Event Actions for Adding PWADs to the List
     if event == "Add":
         if values["Add"] is not "":
             pwadList = window.Element("pwads").GetListValues()
@@ -128,6 +143,7 @@ while True:
                     pwadList.append(pwad)
                     window.Element("pwads").Update(pwadList)
 
+    # Event Actions for Removing a PWAD from the List
     if event == "Remove":
         pwad = "".join(values["pwads"])
         pwadList = window.Element("pwads").GetListValues()
@@ -135,9 +151,11 @@ while True:
             pwadList.remove(pwad)
         window.Element("pwads").Update(pwadList)
 
+    # Event Actions to Clear all PWADs from the List
     if event == "Clear":
         window.Element("pwads").Update([])
 
+    # Event Actions to Increase a PWAD in the List Loading Order
     if event == "▲":
         pwad = "".join(values["pwads"])
         pwadList = window.Element("pwads").GetListValues()
@@ -148,6 +166,7 @@ while True:
         window.Element("pwads").Update(pwadList)
         window.Element("pwads").SetValue(pwad)
 
+    # Event Actions to Decrease a PWAD in the List Loading Order
     if event == "▼":
         pwad = "".join(values["pwads"])
         pwadList = window.Element("pwads").GetListValues()
@@ -158,16 +177,19 @@ while True:
         window.Element("pwads").Update(pwadList)
         window.Element("pwads").SetValue(pwad)
 
+    # Event Actions to Save a Game Configuration
     if event == "SaveConfigStore":
         if values["SaveConfigStore"] is not "":
             configList, pwadList = getValues()
             saveConfig(configList, pwadList, values["SaveConfigStore"])
 
+    # Event Actions to Load a Game Configuration
     if event == "LoadConfigStore":
         if values["LoadConfigStore"] is not "":
             configList, pwadList = loadConfig(values["LoadConfigStore"])
             setValues(configList, pwadList)
 
+    # Event Actions to Launch a Game
     if event == "Launch":
         configList, pwadList = getValues()
         launchReady = True
@@ -186,6 +208,7 @@ while True:
             sg.PopupError("Cannot Launch with missing Config",
                           keep_on_top=True)
 
+    # Event Actions to Launch Oblige
     if event == "Oblige":
         obligeFile = values["oblige"]
         if obligeFile is "":

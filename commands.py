@@ -1,10 +1,12 @@
 import subprocess
-import os
+from os import path, makedirs
 from datetime import datetime
 import shutil
 
 outputDirectory = ""
 outputFile = ""
+
+# Get the current date and time to timestamp the new Oblige Map .wad to Generate
 
 
 def updateOutput():
@@ -16,6 +18,8 @@ def updateOutput():
     print(outputDirectory)
     print(outputFile)
 
+# Execute Oblige in Batch mode to generate the Map .wad given a list of available settings
+
 
 def runOblige(configList):
     global outputDirectory
@@ -24,14 +28,18 @@ def runOblige(configList):
                   outputFile, '--load', configList[1]]
     print(obligeArgs)
     subprocess.run(obligeArgs)
-    if os.path.exists(outputDirectory) is False:
-        os.makedirs(outputDirectory)
+    if path.exists(outputDirectory) is False:
+        makedirs(outputDirectory)
     shutil.move(outputFile, outputDirectory)
     outputFile = outputDirectory + outputFile
+
+# Execute Oblige in Window mode given the filepath for the executable
 
 
 def launchOblige(obligeFile):
     subprocess.Popen(obligeFile)
+
+# Execute the source port given a pair of lists with the available settings and pwads
 
 
 def runSourcePort(configList, pwadList):

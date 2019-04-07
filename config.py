@@ -1,6 +1,8 @@
 # XMLindent is credited to Erick M. Sprengel from Stack Overflow
 import xml.etree.ElementTree as ET
 
+# Indentate the Element Tree for Easier Reading
+
 
 def XMLindent(elem, level=0):
     i = "\n" + level*"  "
@@ -16,6 +18,8 @@ def XMLindent(elem, level=0):
     else:
         if level and (not elem.tail or not elem.tail.strip()):
             elem.tail = i
+
+# Create the XML Structure given a pair of lists of available settings and pwads, and return the completed Element Tree
 
 
 def buildConfig(configList, pwadList):
@@ -39,6 +43,8 @@ def buildConfig(configList, pwadList):
     arguments.text = configList[4]
     return config
 
+# Write the XML to file system given an Element Tree and file name
+
 
 def writeXML(elem, name):
     XMLindent(elem)
@@ -47,17 +53,19 @@ def writeXML(elem, name):
         name = name+".xml"
     tree.write(name, encoding="utf-8", xml_declaration=True)
 
+# Read an XML from file system given a file name and return a pair of lists of file paths for each available setting and PWADs
+
 
 def readXML(name):
     if name.endswith(".xml") is False:
         name = name+".xml"
     tree = ET.parse(name)
     root = tree.getroot()
-    xmlConfigTextList = [
+    xmlConfigList = [
         elem.text for elem in root if elem is not root and elem is not root.find('pwads')]
-    print(xmlConfigTextList)
+    print(xmlConfigList)
     pwadElement = root.find('pwads')
-    xmlPwadTextList = [
+    xmlPwadList = [
         elem.text for elem in pwadElement if elem is not pwadElement]
-    print(xmlPwadTextList)
-    return xmlConfigTextList, xmlPwadTextList
+    print(xmlPwadList)
+    return xmlConfigList, xmlPwadList

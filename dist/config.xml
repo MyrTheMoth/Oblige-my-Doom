@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<config>
+  <oblige>D:/Apps/Oblige/Oblige.exe</oblige>
+  <oblige_config>D:/Apps/Oblige/test.txt</oblige_config>
+  <source_port>D:/Apps/GZDoom/GZDoom 3.7.2/gzdoom.exe</source_port>
+  <iwad>D:/Drive/WADS/Originals/DOOM2.WAD</iwad>
+  <pwads>
+    <pwad1>D:/Drive/WADS/Mods/DoomRL Arsenal/DoomRL_Arsenal_1.1.1.pk3</pwad1>
+    <pwad2>D:/Drive/WADS/Mods/DoomRL Arsenal/DoomRL_Monsters_Beta_7.1.pk3</pwad2>
+  </pwads>
+  <arguments />
+</config>
