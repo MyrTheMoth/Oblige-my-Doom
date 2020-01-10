@@ -8,7 +8,6 @@ configList = ["", "", "", "", "", ""]
 pwadList = []
 sessionsList = []
 sessionsListBox = []
-selectedSession = {}
 
 # Set the Values of each element in the Window given a pair of lists of available settings and pwads
 
