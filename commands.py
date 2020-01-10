@@ -3,35 +3,30 @@ from os import path, makedirs
 from datetime import datetime
 import shutil
 
-outputDirectory = ""
 outputFile = ""
 
 # Get the current date and time to timestamp the new Oblige Map .wad to Generate
 
 
 def updateOutput():
-    global outputDirectory
     global outputFile
-    outputDirectory = 'output/'
     now = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
     outputFile = "output-" + str(now) + ".wad"
-    print(outputDirectory)
     print(outputFile)
+    return outputFile
 
 # Execute Oblige in Batch mode to generate the Map .wad given a list of available settings
 
 
 def runOblige(configList):
-    global outputDirectory
     global outputFile
     obligeArgs = [configList[0], "--batch",
                   outputFile, '--load', configList[1]]
     print(obligeArgs)
     subprocess.run(obligeArgs)
-    if path.exists(outputDirectory) is False:
-        makedirs(outputDirectory)
-    shutil.move(outputFile, outputDirectory)
-    outputFile = outputDirectory + outputFile
+    if path.exists("output/") is False:
+        makedirs("output/")
+    shutil.move(outputFile, "output/")
 
 # Execute Oblige in Window mode given the filepath for the executable
 
@@ -43,9 +38,9 @@ def launchOblige(obligeFile):
 
 
 def runSourcePort(configList, pwadList):
-    global outputFile
+    outputPath = path.join("output/", configList[5])
     sourcePortArgs = [configList[2], "-iwad",
-                      configList[3], "-file", outputFile]
+                      configList[3], "-file", outputPath]
 
     if len(pwadList) is 0:
         if configList[4] is not "":

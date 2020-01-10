@@ -17,6 +17,7 @@ Features
 - Automatically Load your last used settings
 - Open Oblige from the Launcher
 - Add your own arguments to your source port before launch
+- Create and Manage Game Sessions
 
 TODO
 ------------

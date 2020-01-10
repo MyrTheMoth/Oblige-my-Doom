@@ -41,12 +41,14 @@ def buildConfig(configList, pwadList):
             pwadElement.text = pwad
     arguments = ET.SubElement(config, "arguments")
     arguments.text = configList[4]
+    output = ET.SubElement(config, "output")
+    output.text = configList[5]
     return config
 
 # Write the XML to file system given an Element Tree and file name
 
 
-def writeXML(elem, name):
+def writeConfigXML(elem, name):
     XMLindent(elem)
     tree = ET.ElementTree(elem)
     if name.endswith(".xml") is False:
@@ -56,7 +58,7 @@ def writeXML(elem, name):
 # Read an XML from file system given a file name and return a pair of lists of file paths for each available setting and PWADs
 
 
-def readXML(name):
+def readConfigXML(name):
     if name.endswith(".xml") is False:
         name = name+".xml"
     tree = ET.parse(name)
@@ -69,3 +71,36 @@ def readXML(name):
         elem.text for elem in pwadElement if elem is not pwadElement]
     print(xmlPwadList)
     return xmlConfigList, xmlPwadList
+
+# Create the Session XML Structure given a list of session dictionaries and return the completed Element Tree
+
+
+def buildSession(sessionList):
+    sessions = ET.Element("sessions")
+    if len(sessionList) is not 0:
+        sessionCount = 0
+        for session in sessionList:
+            sessionCount += 1
+            sessionElement = ET.SubElement(
+                sessions, "session"+str(sessionCount))
+            sessionElement.attrib = session
+    return sessions
+
+# Write the Sessions XML to file system given an Element Tree
+
+
+def writeSessionsXML(elem):
+    XMLindent(elem)
+    tree = ET.ElementTree(elem)
+    tree.write("sessions.xml", encoding="utf-8", xml_declaration=True)
+
+# Read a Session XML from file system given a file name and return a dictionary with the config of each session
+
+
+def readSessionsXML():
+    tree = ET.parse("sessions.xml")
+    root = tree.getroot()
+    xmlSessionsList = [
+        elem.attrib for elem in root if elem is not root]
+    print(xmlSessionsList)
+    return xmlSessionsList
